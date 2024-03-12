@@ -1,0 +1,19 @@
+{
+    "name": "breno30/wp-cli-acf-extension",
+    "description": "ACF extension CLI Command",
+    "type": "wp-cli-package",
+    "homepage": "https://github.com/Breno30/wp-cli-acf-extension",
+    "support": {
+        "issues": "https://github.com/Breno30/wp-cli-acf-extension"
+    },
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Breno do Nascimento",
+            "email": "brenodonascimentosilva8@gmail.com"
+        }
+    ],
+    "autoload": {
+        "files": [ "installer.php" ]
+    }
+}
