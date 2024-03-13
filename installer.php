@@ -15,7 +15,7 @@ class ACF_Extension_WP_CLI extends WP_CLI_Command
         }
 
         $path = $args[0];
-        $fullPath = realpath(ABSPATH . $path);
+        $fullPath = realpath(getcwd() .'/'. $path);
 
         if (!is_readable($fullPath)) {
             WP_CLI::error(sprintf('Import file missing or not readable: %s', $fullPath));
@@ -85,7 +85,7 @@ class ACF_Extension_WP_CLI extends WP_CLI_Command
         // Write layout json to file
         $content = json_encode($layout, JSON_PRETTY_PRINT);
         $fileName = "layout-$layoutName.json";
-        $fp = fopen(ABSPATH . "/$fileName", "wb");
+        $fp = fopen(getcwd() . "/$fileName", "wb");
         fwrite($fp, $content);
         fclose($fp);
 
