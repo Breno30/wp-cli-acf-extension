@@ -24,6 +24,10 @@ class ACF_Extension_WP_CLI extends WP_CLI_Command
         $json = file_get_contents($fullPath);
         $json = json_decode($json, true);
 
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            WP_CLI::error(sprintf('Given file is or not a valid JSON: %s', $fullPath));
+        }
+
         if (!$json || !is_array($json)) {
             return acf_add_admin_notice(__('Import file empty', 'acf'), 'warning');
         }
