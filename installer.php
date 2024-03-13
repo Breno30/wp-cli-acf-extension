@@ -81,6 +81,8 @@ class ACF_Extension_WP_CLI extends WP_CLI_Command
 
         reset($layouts);
         $layout = $layouts;
+        $layoutKey = array_keys($layout)[0];
+        $layout = $layout[$layoutKey];
 
         // Write layout json to file
         $content = json_encode($layout, JSON_PRETTY_PRINT);
