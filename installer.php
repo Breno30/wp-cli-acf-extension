@@ -40,6 +40,21 @@ class ACF_Extension_WP_CLI extends WP_CLI_Command
             WP_CLI::error(sprintf('Given file has defective key: %s', $fullPath));
         }
 
+        $jsonType = $jsonKeyParts[0];
+
+        switch ($jsonType) {
+            case 'layout':
+                $this->importLayout($json);
+                break;
+            default:
+                WP_CLI::error(sprintf('Given file has not a layout as content: %s', $fullPath));
+                break;
+        }
+
+    }
+
+    protected function importLayout(array $json)
+    {      
         $layoutKey = $json['key'];
         $layoutName = $json['label'];
 
