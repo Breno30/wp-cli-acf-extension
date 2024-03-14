@@ -32,6 +32,14 @@ class ACF_Extension_WP_CLI extends WP_CLI_Command
             WP_CLI::error(sprintf('Given file is empty: %s', $fullPath));
         }
 
+        // Verify key format
+        $jsonKey = $json['key'];
+        $jsonKeyParts = explode('_', $jsonKey);
+
+        if (count($jsonKeyParts) < 2) {
+            WP_CLI::error(sprintf('Given file has defective key: %s', $fullPath));
+        }
+
         $layoutKey = $json['key'];
         $layoutName = $json['label'];
 
