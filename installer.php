@@ -29,7 +29,7 @@ class ACF_Extension_WP_CLI extends WP_CLI_Command
         }
 
         if (!$json || !is_array($json)) {
-            return acf_add_admin_notice(__('Import file empty', 'acf'), 'warning');
+            WP_CLI::error(sprintf('Given file is empty: %s', $fullPath));
         }
 
         $layoutKey = $json['key'];
