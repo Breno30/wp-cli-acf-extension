@@ -117,6 +117,26 @@ class ACF_Extension_WP_CLI extends WP_CLI_Command
         WP_CLI::success("Layout saved successfully as $fileName");
     }
 
+    protected function inputGroup()
+    {
+        // List ACF group
+        $groupList = acf_get_field_groups();
+
+        if (count($groupList) <= 1) {
+            return $groupList[0];
+        }
+
+        // Add index
+        foreach ($groupList as $key => $group) {
+            $groupList[$key]['index'] = $key;
+        }
+
+        WP_CLI\Utils\format_items('table', $groupList, ['index', 'title']);
+        $groupIndex = $this->ask(' Inform the index of your group:');
+
+        return $groupList[$groupIndex];
+    }
+
     protected function ask($question)
     {
         // Adding space to question and showing it.
