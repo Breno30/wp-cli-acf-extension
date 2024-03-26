@@ -58,9 +58,7 @@ class ACF_Extension_WP_CLI extends WP_CLI_Command
         $layoutKey = $json['key'];
         $layoutName = $json['label'];
 
-        // Find ACF group
-        $groupList = acf_get_field_groups();
-        $fieldGroup = $groupList[0];
+        $fieldGroup = $this->inputGroup();
 
         // Find ACF field
         $fieldGroup = acf_get_field_group($fieldGroup['key']);
