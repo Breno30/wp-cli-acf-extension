@@ -58,9 +58,7 @@ class ACF_Extension_WP_CLI extends WP_CLI_Command
         $layoutKey = $json['key'];
         $layoutName = $json['label'];
 
-        // Find ACF group
-        $groupList = acf_get_field_groups();
-        $fieldGroup = $groupList[0];
+        $fieldGroup = $this->inputGroup();
 
         // Find ACF field
         $fieldGroup = acf_get_field_group($fieldGroup['key']);
@@ -80,8 +78,7 @@ class ACF_Extension_WP_CLI extends WP_CLI_Command
     public function export($args, $assoc_args)
     {
         // Find ACF group
-        $groupList = acf_get_field_groups();
-        $fieldGroup = $groupList[0];
+        $fieldGroup = $this->inputGroup();
 
         // Find ACF field
         $fieldGroup = acf_get_field_group($fieldGroup['key']);
@@ -115,6 +112,26 @@ class ACF_Extension_WP_CLI extends WP_CLI_Command
         fclose($fp);
 
         WP_CLI::success("Layout saved successfully as $fileName");
+    }
+
+    protected function inputGroup()
+    {
+        // List ACF group
+        $groupList = acf_get_field_groups();
+
+        if (count($groupList) <= 1) {
+            return $groupList[0];
+        }
+
+        // Add index
+        foreach ($groupList as $key => $group) {
+            $groupList[$key]['index'] = $key;
+        }
+
+        WP_CLI\Utils\format_items('table', $groupList, ['index', 'title']);
+        $groupIndex = $this->ask(' Inform the index of your group:');
+
+        return $groupList[$groupIndex];
     }
 
     protected function ask($question)
